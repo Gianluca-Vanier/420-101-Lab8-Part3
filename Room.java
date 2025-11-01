@@ -20,21 +20,25 @@ import java.util.HashMap;
 
 public class Room {
     private String description;
-    private HashMap<String, Room> exits;
+    private HashMap<Direction, Room> exits;
 
+    // Constructor for room description
     public Room(String description) {
         this.description = description;
         exits = new HashMap<>();
     }
 
-    public void setExit(String direction, Room neighbor) {
+    // Set exit in a given direction
+    public void setExit(Direction direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
 
-    public Room getExit(String direction) {
+    // Get the room in a given direction
+    public Room getExit(Direction direction) {
         return exits.get(direction);
     }
 
+    // Get the long description of the room
     public String getLongDescription() {
         return "You are " + description;
     }

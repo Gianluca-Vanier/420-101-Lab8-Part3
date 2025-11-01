@@ -13,28 +13,29 @@ public class Game {
 
     private void createRooms() {
         Room outside, theater, pub, lab, office;
-
-        // create the rooms
+    
+        // Create rooms
         outside = new Room("outside the main entrance of the university");
         theater = new Room("in a lecture theater");
         pub = new Room("in the campus pub");
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
-
-        // initialise room exits
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
-
-        theater.setExit("west", outside);
-        pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
-
-        currentRoom = outside;  
+    
+        // Set exits using Direction enum
+        outside.setExit(Direction.EAST, theater);
+        outside.setExit(Direction.SOUTH, lab);
+        outside.setExit(Direction.WEST, pub);
+    
+        theater.setExit(Direction.WEST, outside);
+        pub.setExit(Direction.EAST, outside);
+    
+        lab.setExit(Direction.NORTH, outside);
+        lab.setExit(Direction.EAST, office);
+    
+        office.setExit(Direction.WEST, lab);
+    
+        // Start the game in the "outside" room
+        currentRoom = outside;
     }
 
     public void play() {
@@ -119,18 +120,40 @@ public class Game {
     }
 
     private void goRoom(Command command) {
-        if(!command.hasSecondWord()) {
+        if (!command.hasSecondWord()) {
             System.out.println("Go where?");
             return;
         }
-
-        String direction = command.getSecondWord();
+    
+        // Get the direction from the second word in the command
+        String directionStr = command.getSecondWord();
+        Direction direction = null;
+    
+        // Convert string direction to Direction enum
+        switch (directionStr.toUpperCase()) {
+            case "NORTH":
+                direction = Direction.NORTH;
+                break;
+            case "SOUTH":
+                direction = Direction.SOUTH;
+                break;
+            case "EAST":
+                direction = Direction.EAST;
+                break;
+            case "WEST":
+                direction = Direction.WEST;
+                break;
+            default:
+                System.out.println("Unknown direction!");
+                return;
+        }
+    
+        // Try to move to the next room
         Room nextRoom = currentRoom.getExit(direction);
-
+    
         if (nextRoom == null) {
             System.out.println("There is no door!");
         } else {
-            roomHistory.push(currentRoom);  // Save the current room before moving
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
