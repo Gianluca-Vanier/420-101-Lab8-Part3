@@ -16,53 +16,30 @@ import java.util.Scanner;
  * @author  Michael Kölling and David J. Barnes
  * @version 7.2
  */
-public class Parser 
-{
-    private CommandWords commands;  // holds all valid command words
-    private Scanner reader;         // source of command input
+import java.util.Scanner;
 
-    /**
-     * Create a parser to read from the terminal window.
-     */
-    public Parser() 
-    {
-        commands = new CommandWords();
+public class Parser {
+    private Scanner reader;
+
+    public Parser() {
         reader = new Scanner(System.in);
     }
 
-    /**
-     * @return The next command from the user.
-     */
-    public Command getCommand() 
-    {
-        // The full input line.
-        String inputLine;
-        String word1 = null;
-        String word2 = null;
+    public Command getCommand() {
+        System.out.print("> ");
+        String input = reader.nextLine().trim().toLowerCase();
+        String[] words = input.split(" ");
 
-        // print prompt
-        System.out.print("> ");     
-
-        inputLine = reader.nextLine();
-
-        // Find up to two words on the line.
-        Scanner tokenizer = new Scanner(inputLine);
-        if(tokenizer.hasNext()) {
-            word1 = tokenizer.next();
-            if(tokenizer.hasNext()) {
-                word2 = tokenizer.next();
-                // note: we just ignore the rest of the input line.
-            }
+        if (words.length == 0) {
+            return new Command(null, null);
+        } else if (words.length == 1) {
+            return new Command(words[0], null);
+        } else {
+            return new Command(words[0], words[1]);
         }
-
-        return new Command(commands.getCommandWord(word1), word2);
     }
 
-    /**
-     * Print out a list of valid command words.
-     */
-    public void showCommands()
-    {
-        commands.showAll();
+    public void showCommands() {
+        System.out.println("Your command words are: move, exit, assist, back, look, details");
     }
 }

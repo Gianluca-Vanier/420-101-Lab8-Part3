@@ -18,3 +18,8 @@ This project was written to illustrate the use of enums to support
 language independence of the game logic.
 
 Read chapter 8 of the book to get a detailed description of the project.
+
+40. Classes other than CommandWords need to be edited in order to change the keywords. This effects how the game interprets player input.
+41. It changes from Type 'help' if you need help. to Type 'assist' if you need help.
+
+

@@ -23,10 +23,10 @@ public class CommandWords
     public CommandWords()
     {
         validCommands = new HashMap<>();
-        validCommands.put("go", CommandWord.GO);
-        validCommands.put("help", CommandWord.HELP);
-        validCommands.put("?", CommandWord.HELP);
-        validCommands.put("quit", CommandWord.QUIT);
+        validCommands.put("move", CommandWord.MOVE);
+        validCommands.put("assist", CommandWord.ASSIST);
+        validCommands.put("?", CommandWord.ASSIST);
+        validCommands.put("exit", CommandWord.EXIT);
     }
 
     /**
@@ -65,4 +65,15 @@ public class CommandWords
         }
         System.out.println();
     }
+    
+        public static void commandDetails() {
+        System.out.println("Here are the details about each command:");
+        System.out.println("MOVE - Move in a specified direction (e.g., 'move north').");
+        System.out.println("EXIT - Exit the game.");
+        System.out.println("ASSIST - Show a list of commands and a brief help message.");
+        System.out.println("BACK - Go back to the previous room.");
+        System.out.println("LOOK - Look around the current room and get a description.");
+        System.out.println("DETAILS - Show detailed information about each command.");
+    }
 }
+
