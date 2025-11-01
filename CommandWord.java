@@ -5,14 +5,32 @@
  * @version 7.0
  */
 public enum CommandWord {
-    MOVE, EXIT, ASSIST, BACK, LOOK, DETAILS, UNKNOWN;
+    MOVE("go"),
+    EXIT("quit"),
+    HELP("help"),
+    BACK("back"),
+    LOOK("look"),
+    DETAILS("details"),
+    QUESTION_MARK("?"),
+    UNKNOWN("unknown"); // Added UNKNOWN
+    
+    
+    private String command;
 
-    // Converts a string command to CommandWord enum
+    CommandWord(String command) {
+        this.command = command;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
     public static CommandWord fromString(String command) {
-        try {
-            return CommandWord.valueOf(command.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            return null;  // Return null if the command doesn't match an enum value
+        for (CommandWord c : CommandWord.values()) {
+            if (c.getCommand().equalsIgnoreCase(command)) {
+                return c;
+            }
         }
+        return null; // Command not recognized
     }
 }

@@ -59,38 +59,41 @@ public class Game {
 
     private boolean processCommand(Command command) {
         boolean wantToQuit = false;
-
-        if(command.isUnknown()) {
+    
+        if (command.isUnknown()) {
             System.out.println("I don't know what you mean...");
             return false;
         }
-
+    
         // Convert string command to CommandWord enum
         CommandWord commandWord = CommandWord.fromString(command.getCommandWord());
-
+    
         if (commandWord == null) {
             System.out.println("Command not recognized.");
             System.out.println("Your command words are:");
             parser.showCommands();
             return false;
         }
-
+    
         // Switch on the CommandWord enum
-        switch(commandWord) {
-            case BACK:
-                goBack();
+        switch (commandWord) {
+            case HELP:
+                printHelp();  // Help text will be printed
                 break;
-            case ASSIST:
-                printHelp();
+            case QUESTION_MARK:
+                printHelp();  // Same as HELP, '?' will trigger help as well
                 break;
             case MOVE:
                 goRoom(command);
                 break;
-            case LOOK:
-                look();
-                break;
             case EXIT:
                 wantToQuit = quit(command);
+                break;
+            case BACK:
+                goBack();
+                break;
+            case LOOK:
+                look();
                 break;
             case DETAILS:
                 CommandWords.commandDetails();
